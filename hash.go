@@ -13,6 +13,18 @@ type Hash struct {
 	content []byte
 }
 
+func (hash *Hash) Bytes() []byte {
+	return hash.content
+}
+
+func (hash *Hash) PrePend(prefix []byte) []byte {
+	return append(prefix, hash.content...)
+}
+
+func (hash *Hash) Append(suffix []byte) []byte {
+	return append(hash.content, suffix...)
+}
+
 func (hash *Hash) Equal(target *Hash) bool {
 	if target == nil {
 		return false
