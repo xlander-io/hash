@@ -32,6 +32,10 @@ func (hash *Hash) Equal(target *Hash) bool {
 	return bytes.Equal(hash.content, target.content)
 }
 
+func (hash *Hash) Clone() *Hash {
+	return NewHashFromBytes(hash.content)
+}
+
 func IsNilHash(target *Hash) bool {
 	if target == nil {
 		return true
