@@ -7,6 +7,8 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
+const HASH_LEN = 32
+
 var NIL_HASH = NewHashFromString("0xa7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a")
 
 type Hash struct {
@@ -23,6 +25,14 @@ func (hash *Hash) PrePend(prefix []byte) []byte {
 
 func (hash *Hash) Append(suffix []byte) []byte {
 	return append(hash.content, suffix...)
+}
+
+func (hash *Hash) Hex() string {
+	b := hash.Bytes()
+	enc := make([]byte, HASH_LEN*2+2)
+	copy(enc, "0x")
+	hex.Encode(enc[2:], b)
+	return string(enc)
 }
 
 func (hash *Hash) Equal(target *Hash) bool {
